@@ -1,0 +1,13 @@
+version: "3"
+services:
+  terminal:
+    build:
+      args:
+        - new_user=${USER}
+      context: .
+      dockerfile: Dockerfile
+    container_name: terminal
+    privileged: true
+    tty: true
+    ports:
+      - "2222:2222"
