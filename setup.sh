@@ -2,7 +2,7 @@
 if [ "$(docker ps -q -f name=terminal)" ]; then
     echo "The terminal container is already running"
     echo "if you wish to erase the all of related containers, images, network, volumes, and run the terminal container again, please run the following command:"
-    echo "docker-compose down --rmi all --volumes --remove-orphans"
+    echo "docker compose down --rmi all --volumes --remove-orphans"
     exit 0
 fi
 
@@ -23,7 +23,7 @@ fi
 cp ~/.ssh/terminal.pub .
 
 # clear all containers, images, network, volumes related to the terminal
-docker-compose down --rmi all --volumes --remove-orphans
+docker compose down --rmi all --volumes --remove-orphans
 
 # build and run the terminal container
 docker compose up -d --build

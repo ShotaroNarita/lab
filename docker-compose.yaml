@@ -11,3 +11,5 @@ services:
     tty: true
     ports:
       - "2222:2222"
+    volumes:
+      - ~/container:/app

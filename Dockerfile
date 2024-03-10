@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:latest
 
 ARG new_user
 
@@ -17,17 +17,14 @@ RUN apt update && apt install -y openssh-server && apt clean
 # ssh用のディレクトリを作成
 RUN mkdir /var/run/sshd
 
-# パスワード設定
-# RUN echo 'root:password' | chpasswd
-
 # パスワードを使用したログインを許可しない
-RUN sed -ri 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config 
+RUN sed -i -r 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config 
 
 # 公開鍵認証を許可
-RUN sed -ri 's/#AuthorizedKeysFile/AuthorizedKeysFile/' /etc/ssh/sshd_config
+RUN sed -i -r 's/#AuthorizedKeysFile/AuthorizedKeysFile/' /etc/ssh/sshd_config
 
 # ポートを22から2222に変更
-RUN sed -ri 's/^#Port 22/Port 2222/' /etc/ssh/sshd_config 
+RUN sed -i -r 's/^#Port 22/Port 2222/' /etc/ssh/sshd_config 
 
 RUN /usr/sbin/sshd
 
