@@ -12,7 +12,13 @@ RUN mkdir /home/${new_user}/.ssh
 COPY terminal.pub /home/${new_user}/.ssh/authorized_keys
 
 # sshサーバをインストール
-RUN apt update && apt install -y openssh-server && apt clean
+RUN apt update && apt install -y openssh-server sudo && apt clean
+
+# ひとまずパスワードを設定
+RUN echo "${new_user}:password" | chpasswd
+
+# sudoに追加
+RUN gpasswd -a ${new_user} sudo
 
 # ssh用のディレクトリを作成
 RUN mkdir /var/run/sshd
